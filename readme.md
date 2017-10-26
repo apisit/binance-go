@@ -280,7 +280,7 @@ log.Printf("%+v", p)
 ```
 
 
-### Current open orders
+#### Current open orders
 ```go
 import (
 	"github.com/apisit/binance-go"
@@ -301,7 +301,7 @@ if err != nil {
 log.Printf("%+v", p)
 ```
 
-### All orders
+#### All orders
 ```go
 import (
 	"github.com/apisit/binance-go"
@@ -324,7 +324,7 @@ if err != nil {
 log.Printf("%+v", p)
 ```
 
-### Account information
+#### Account information
 ```go
 import (
 	"github.com/apisit/binance-go"
@@ -340,7 +340,7 @@ if err != nil {
 }
 log.Printf("%v", p)
 ```
-### Account trade list
+#### Account trade list
 ```go
 import (
 	"github.com/apisit/binance-go"
