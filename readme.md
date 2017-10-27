@@ -361,7 +361,7 @@ log.Printf("%+v", p)
 ```
 
 #### Submit a withdraw request
-```
+```go
 import (
 	"github.com/apisit/binance-go"
 	"github.com/apisit/binance-go/account"
@@ -383,7 +383,7 @@ log.Printf("%+v", p)
 ```
 
 ##### Fetch withdraw history
-```
+```go
 import (
 	"github.com/apisit/binance-go"
 	"github.com/apisit/binance-go/account"
@@ -400,7 +400,7 @@ log.Printf("%+v", p)
 ```
 
 ##### Fetch deposit history
-```
+```go
 import (
 	"github.com/apisit/binance-go"
 	"github.com/apisit/binance-go/account"
