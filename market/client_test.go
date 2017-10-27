@@ -32,7 +32,7 @@ func TestOrderBook(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	log.Printf("%v", p)
+	log.Printf("%+v", p)
 }
 
 func TestTwentyFourHourPrice(t *testing.T) {

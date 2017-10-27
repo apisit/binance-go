@@ -162,3 +162,39 @@ type TradeList []struct {
 	IsMaker         bool   `json:"isMaker"`
 	IsBestMatch     bool   `json:"isBestMatch"`
 }
+
+//Deposit history response.
+type DepositHistory struct {
+	DepositList []struct {
+		InsertTime int64   `json:"insertTime"`
+		Amount     float64 `json:"amount"`
+		Asset      string  `json:"asset"`
+		Status     int     `json:"status"`
+	} `json:"depositList"`
+	Success bool `json:"success"`
+}
+
+type WithdrawHistory struct {
+	WithdrawList []struct {
+		Amount    int    `json:"amount"`
+		Address   string `json:"address"`
+		Asset     string `json:"asset"`
+		ApplyTime int64  `json:"applyTime"`
+		Status    int    `json:"status"`
+		TxID      string `json:"txId,omitempty"`
+	} `json:"withdrawList"`
+	Success bool `json:"success"`
+}
+
+//Withdraw params
+type WithdrawParams struct {
+	Asset   string  `json:"asset"`
+	Address string  `json:"address"`
+	Amount  float64 `json:"amount"`
+	Name    float64 `json:"name,omitempty"`
+}
+
+type WithdrawResponse struct {
+	Msg     string `json:"msg"`
+	Success bool   `json:"success"`
+}

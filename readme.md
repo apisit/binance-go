@@ -359,3 +359,59 @@ if err != nil {
 }
 log.Printf("%+v", p)
 ```
+
+#### Submit a withdraw request
+```
+import (
+	"github.com/apisit/binance-go"
+	"github.com/apisit/binance-go/account"
+)
+
+binanceClient := binance.Client{}
+binanceClient.Init("YOUR_API_KEY", "YOUR_SECRET_KEY")
+params := account.WithdrawParams{
+	Asset:   "NEO",
+	Address: "AKcm7eABuW1Pjb5HsTwiq7iARSatim9tQ6",
+	Amount:  1,
+}
+
+p, err := binanceClient.Account.SubmitWithdrawRequest(params)
+if err != nil {
+	t.Error(err)
+}
+log.Printf("%+v", p)
+```
+
+##### Fetch withdraw history
+```
+import (
+	"github.com/apisit/binance-go"
+	"github.com/apisit/binance-go/account"
+)
+
+binanceClient := binance.Client{}
+binanceClient.Init("YOUR_API_KEY", "YOUR_SECRET_KEY")
+
+p, err := binanceClient.Account.WithdrawHistory()
+if err != nil {
+	t.Error(err)
+}
+log.Printf("%+v", p)
+```
+
+##### Fetch deposit history
+```
+import (
+	"github.com/apisit/binance-go"
+	"github.com/apisit/binance-go/account"
+)
+
+binanceClient := binance.Client{}
+binanceClient.Init("YOUR_API_KEY", "YOUR_SECRET_KEY")
+
+p, err := binanceClient.Account.DepositHistory()
+if err != nil {
+	t.Error(err)
+}
+log.Printf("%+v", p)
+```

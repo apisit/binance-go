@@ -21,7 +21,7 @@ var _ Interface = (*Client)(nil)
 
 //Ping binance server
 func (c *Client) Ping() error {
-	err := c.API.Request("GET", "/v1/ping", nil, nil)
+	err := c.API.Request("GET", "/api/v1/ping", nil, nil)
 	return err
 }
 
@@ -30,7 +30,7 @@ func (c *Client) ServerTime() time.Time {
 	result := struct {
 		Time int64 `json:"serverTime"`
 	}{}
-	c.API.Request("GET", "/v1/time", nil, &result)
+	c.API.Request("GET", "/api/v1/time", nil, &result)
 	//time returns from server is milliseconds
 	return time.Unix(result.Time/1000, 0)
 }

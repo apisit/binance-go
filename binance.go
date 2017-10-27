@@ -13,7 +13,7 @@ import (
 
 //constant used for API client
 const (
-	APIURL             = "https://www.binance.com/api"
+	APIURL             = "https://www.binance.com"
 	clientVersion      = "0.1"
 	UserAgent          = "github.com/apisit/binance-go version/" + clientVersion
 	defaultHTTPTimeout = 80 * time.Second

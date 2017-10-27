@@ -10,7 +10,7 @@ import (
 )
 
 var httpClient = &http.Client{Timeout: 80 * time.Second}
-var baseURL = "https://www.binance.com/api"
+var baseURL = "https://www.binance.com"
 var key = ""
 var secret = ""
 var api = client.API{URL: baseURL, Key: key, SecretKey: secret, HTTPClient: httpClient}
@@ -156,6 +156,38 @@ func TestTradeList(t *testing.T) {
 	}
 
 	p, err := client.TradeList(params)
+	if err != nil {
+		t.Error(err)
+	}
+	log.Printf("%+v", p)
+}
+
+func TestDepositHistory(t *testing.T) {
+	client := Client{API: api}
+	p, err := client.DepositHistory()
+	if err != nil {
+		t.Error(err)
+	}
+	log.Printf("%+v", p)
+}
+
+func TestWithdrawHistory(t *testing.T) {
+	client := Client{API: api}
+	p, err := client.WithdrawHistory()
+	if err != nil {
+		t.Error(err)
+	}
+	log.Printf("%+v", p)
+}
+
+func TestWithDraw(t *testing.T) {
+	client := Client{API: api}
+	params := WithdrawParams{
+		Asset:   "NEO",
+		Address: "AKcm7eABuW1Pjb5HsTwiq7iARSatim9tQ6",
+		Amount:  1,
+	}
+	p, err := client.SubmitWithdrawRequest(params)
 	if err != nil {
 		t.Error(err)
 	}
