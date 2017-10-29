@@ -9,11 +9,13 @@ import (
 	"github.com/apisit/binance-go/client"
 	"github.com/apisit/binance-go/general"
 	"github.com/apisit/binance-go/market"
+	"github.com/apisit/binance-go/stream"
 )
 
 //constant used for API client
 const (
 	APIURL             = "https://www.binance.com"
+	StreamAPIURL       = "wss://stream.binance.com:9443/ws"
 	clientVersion      = "0.1"
 	UserAgent          = "github.com/apisit/binance-go version/" + clientVersion
 	defaultHTTPTimeout = 80 * time.Second
@@ -44,11 +46,18 @@ func Account() *account.Client {
 	return &account.Client{*api}
 }
 
+//Use Stream endpoint without client
+func Stream() *stream.Client {
+	api := client.New(APIURL, APIKey, SecretKey, httpClient, UserAgent)
+	return &stream.Client{*api}
+}
+
 //Client is the Binance client. It contains all resources available.
 type Client struct {
 	Market  market.Client
 	General general.Client
 	Account account.Client
+	Stream  stream.Client
 }
 
 //Init initializes the Binance client with given API key, secret key.
@@ -57,4 +66,5 @@ func (c *Client) Init(apiKey, secretKey string) {
 	c.Market = market.Client{*api}
 	c.General = general.Client{*api}
 	c.Account = account.Client{*api}
+	c.Stream = stream.Client{*api}
 }

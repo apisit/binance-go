@@ -44,25 +44,3 @@ type SymbolType string
 const (
 	SPOT SymbolType = "SPOT"
 )
-
-type KlineIntervals string
-
-//Kline intervals.
-//m -> minutes; h -> hours; d -> days; w -> weeks; M -> months
-const (
-	OneMinute      KlineIntervals = "1m"
-	ThreeMinutes   KlineIntervals = "3m"
-	FiveMinutes    KlineIntervals = "5m"
-	FifteenMinutes KlineIntervals = "15m"
-	ThirtyMinutes  KlineIntervals = "30m"
-	OneHour        KlineIntervals = "1h"
-	TwoHours       KlineIntervals = "2h"
-	FourHours      KlineIntervals = "4h"
-	SixHours       KlineIntervals = "6h"
-	EightHours     KlineIntervals = "8h"
-	TwelveHours    KlineIntervals = "12h"
-	OneDay         KlineIntervals = "1d"
-	ThreeDays      KlineIntervals = "3d"
-	OneWeek        KlineIntervals = "1w"
-	OneMonth       KlineIntervals = "1M"
-)

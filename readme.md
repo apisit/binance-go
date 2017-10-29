@@ -415,3 +415,62 @@ if err != nil {
 }
 log.Printf("%+v", p)
 ```
+
+
+### WebSocket API
+#### Depth 
+```go
+package main
+
+import (
+	"log"
+	"sync"
+
+	"github.com/apisit/binance-go"
+	"github.com/apisit/binance-go/stream"
+)
+
+func depthHandler(data stream.DepthStream) {
+	log.Printf("%+v", data)
+}
+
+func main() {
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	depthParams := stream.DepthParams{
+		Symbol: "NEOBTC",
+	}
+	binance.Stream().Depth(depthParams, depthHandler)
+	wg.Wait()
+}
+
+```
+
+#### Kline 
+```go 
+package main
+
+import (
+	"log"
+	"sync"
+
+	"github.com/apisit/binance-go"
+	"github.com/apisit/binance-go/stream"
+)
+
+func klineHandler(data stream.KlineStream) {
+	log.Printf("%+v", data)
+}
+
+func main() {
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	params := stream.KlineParams{
+		Symbol:   "NEOBTC",
+		Interval: stream.FiveMinutes,
+	}
+	binance.Stream().Kline(params, klineHandler)
+	wg.Wait()
+}
+
+```

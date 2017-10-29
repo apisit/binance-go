@@ -12,6 +12,8 @@ import (
 	"net/http"
 	"net/url"
 	"time"
+
+	"github.com/gorilla/websocket"
 )
 
 //API is a Binance API client.
@@ -124,4 +126,28 @@ func (a *API) SignedRequest(method, endpoint string, params interface{}, out int
 		err = json.NewDecoder(res.Body).Decode(&out)
 	}
 	return err
+}
+
+type StreamHandler func(data []byte)
+
+func (a *API) Stream(endpoint string, handler StreamHandler) {
+	url := fmt.Sprintf("wss://stream.binance.com:9443/ws/%s", endpoint)
+	websocketClient, _, err := websocket.DefaultDialer.Dial(url, nil)
+	if err != nil {
+		log.Fatal("dial:", err)
+		return
+	}
+
+	go func() {
+		defer websocketClient.Close()
+		for {
+			_, m, err := websocketClient.ReadMessage()
+			if err != nil {
+				log.Println("read:", err)
+				return
+			}
+			go handler(m)
+		}
+	}()
+
 }
