@@ -57,3 +57,17 @@ func TestKlineStream(t *testing.T) {
 	})
 	wg.Wait()
 }
+
+func TestTradeStream(t *testing.T) {
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	client := Client{API: api}
+	p := TradeParams{
+		Symbol: "BNBBTC",
+	}
+	client.Trade(p, func(d TradeStream) {
+		log.Printf("%v", d)
+		wg.Done()
+	})
+	wg.Wait()
+}

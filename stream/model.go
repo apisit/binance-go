@@ -7,17 +7,17 @@ type AggregateTradeParams struct {
 
 //Aggregate Trade stream response
 type AggregateTradeStream struct {
-	EventType         string  `json:"e"`
-	EventTime         int64   `json:"E"`
-	Symbol            string  `json:"s"`
-	AggregatedTradeID int     `json:"a"`
-	Price             float64 `json:"p"`
-	Quantity          float64 `json:"q"`
-	FirtTradeID       int     `json:"f"`
-	LastTradeID       int     `json:"l"`
-	TradeTime         int64   `json:"T"`
-	IsMaker           bool    `json:"m"`
-	M                 string  `json:"M"` //can be ignored
+	EventType         string `json:"e"`
+	EventTime         int64  `json:"E"`
+	Symbol            string `json:"s"`
+	AggregatedTradeID int    `json:"a"`
+	Price             string `json:"p"`
+	Quantity          string `json:"q"`
+	FirtTradeID       int    `json:"f"`
+	LastTradeID       int    `json:"l"`
+	TradeTime         int64  `json:"T"`
+	IsMaker           bool   `json:"m"`
+	M                 string `json:"M"` //can be ignored
 }
 
 //Depth params
@@ -87,4 +87,24 @@ type KlineStream struct {
 		QuoteVolumeOfActiveBuy string `json:"Q"`
 		B                      string `json:"B"` //can be ignored
 	} `json:"k"`
+}
+
+//Trade params
+type TradeParams struct {
+	Symbol string `json:"symbol"`
+}
+
+//Trade stream response
+type TradeStream struct {
+	EventType     string `json:"e"`
+	EventTime     int64  `json:"E"`
+	Symbol        string `json:"s"`
+	TradeID       int    `json:"t"`
+	Price         string `json:"p"`
+	Quantity      string `json:"q"`
+	BuyerOrderID  int    `json:"b"`
+	SellerOrderID int    `json:"a"`
+	TradeTime     int64  `json:"T"`
+	IsMaker       bool   `json:"m"`
+	M             string `json:"M"` //can be ignored
 }

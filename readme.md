@@ -520,3 +520,31 @@ func main() {
 	wg.Wait()
 }
 ```
+
+#### Trade
+
+```go
+package main
+
+import (
+	"log"
+	"sync"
+
+	"github.com/apisit/binance-go"
+	"github.com/apisit/binance-go/stream"
+)
+
+func tradeHandler(data stream.TradeStream) {
+	log.Printf("%+v", data)
+}
+
+func main() {
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	tradesParams := stream.TradeParams{
+		Symbol: "NEOBTC",
+	}
+	binance.Stream().AggregateTrade(tradesParams, tradeHandler)
+	wg.Wait()
+}
+```
