@@ -436,6 +436,34 @@ log.Printf("%+v", p)
 
 ### WebSocket API
 
+#### Aggregate Trade
+
+```go
+package main
+
+import (
+	"log"
+	"sync"
+
+	"github.com/apisit/binance-go"
+	"github.com/apisit/binance-go/stream"
+)
+
+func aggregateTradeHandler(data stream.AggregateTradeStream) {
+	log.Printf("%+v", data)
+}
+
+func main() {
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	tradesParams := stream.AggregateTradeParams{
+		Symbol: "NEOBTC",
+	}
+	binance.Stream().AggregateTrade(tradesParams, aggregateTradeHandler)
+	wg.Wait()
+}
+```
+
 #### Depth
 
 ```go
@@ -489,34 +517,6 @@ func main() {
 		Interval: stream.FiveMinutes,
 	}
 	binance.Stream().Kline(params, klineHandler)
-	wg.Wait()
-}
-```
-
-#### Trades
-
-```go
-package main
-
-import (
-	"log"
-	"sync"
-
-	"github.com/apisit/binance-go"
-	"github.com/apisit/binance-go/stream"
-)
-
-func tradesHandler(data stream.TradesStream) {
-	log.Printf("%+v", data)
-}
-
-func main() {
-	wg := sync.WaitGroup{}
-	wg.Add(1)
-	tradesParams := stream.TradesParams{
-		Symbol: "NEOBTC",
-	}
-	binance.Stream().Trades(tradesParams, tradesHandler)
 	wg.Wait()
 }
 ```

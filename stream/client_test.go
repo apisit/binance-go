@@ -15,6 +15,20 @@ var baseURL = "https://www.binance.com/api"
 var key = ""
 var api = client.API{URL: baseURL, Key: key, HTTPClient: httpClient}
 
+func TestAggregateTradeStream(t *testing.T) {
+	wg := sync.WaitGroup{}
+	wg.Add(1)
+	client := Client{API: api}
+	p := AggregateTradeParams{
+		Symbol: "BNBBTC",
+	}
+	client.AggregateTrade(p, func(d AggregateTradeStream) {
+		log.Printf("%v", d)
+		wg.Done()
+	})
+	wg.Wait()
+}
+
 func TestDepthStream(t *testing.T) {
 	wg := sync.WaitGroup{}
 	wg.Add(1)
@@ -38,20 +52,6 @@ func TestKlineStream(t *testing.T) {
 		Interval: OneMinute,
 	}
 	client.Kline(p, func(d KlineStream) {
-		log.Printf("%v", d)
-		wg.Done()
-	})
-	wg.Wait()
-}
-
-func TestTradesStream(t *testing.T) {
-	wg := sync.WaitGroup{}
-	wg.Add(1)
-	client := Client{API: api}
-	p := TradesParams{
-		Symbol: "BNBBTC",
-	}
-	client.Trades(p, func(d TradesStream) {
 		log.Printf("%v", d)
 		wg.Done()
 	})

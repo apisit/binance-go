@@ -1,5 +1,25 @@
 package stream
 
+//Aggregate Trade params
+type AggregateTradeParams struct {
+	Symbol string `json:"symbol"`
+}
+
+//Aggregate Trade stream response
+type AggregateTradeStream struct {
+	EventType         string  `json:"e"`
+	EventTime         int64   `json:"E"`
+	Symbol            string  `json:"s"`
+	AggregatedTradeID int     `json:"a"`
+	Price             float64 `json:"p"`
+	Quantity          float64 `json:"q"`
+	FirtTradeID       int     `json:"f"`
+	LastTradeID       int     `json:"l"`
+	TradeTime         int64   `json:"T"`
+	IsMaker           bool    `json:"m"`
+	M                 string  `json:"M"` //can be ignored
+}
+
 //Depth params
 type DepthParams struct {
 	Symbol string `json:"symbol"`
@@ -67,24 +87,4 @@ type KlineStream struct {
 		QuoteVolumeOfActiveBuy string `json:"Q"`
 		B                      string `json:"B"` //can be ignored
 	} `json:"k"`
-}
-
-//Trades params
-type TradesParams struct {
-	Symbol string `json:"symbol"`
-}
-
-//Trades stream response
-type TradesStream struct {
-	EventType         string  `json:"e"`
-	EventTime         int64   `json:"E"`
-	Symbol            string  `json:"s"`
-	AggregatedTradeID int     `json:"a"`
-	Price             float64 `json:"p"`
-	Quantity          float64 `json:"q"`
-	FirtTradeID       int     `json:"f"`
-	LastTradeID       int     `json:"l"`
-	TradeTime         int64   `json:"T"`
-	IsMaker           bool    `json:"m"`
-	M                 string  `json:"M"` //can be ignored
 }
