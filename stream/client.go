@@ -8,8 +8,10 @@ import (
 	"github.com/apisit/binance-go/client"
 )
 
+type AggregateTradeHandler func(data AggregateTradeStream)
 type DepthHandler func(data DepthStream)
 type KlineHandler func(data KlineStream)
+type TradeHandler func(data TradeStream)
 
 type Client struct {
 	API client.API
@@ -17,11 +19,24 @@ type Client struct {
 
 //Methods for stream endpoints
 type Interface interface {
+	AggregateTrade(params AggregateTradeParams, handler AggregateTradeHandler)
 	Depth(params DepthParams, handler DepthHandler)
 	Kline(params KlineParams, handler KlineHandler)
+	Trade(params TradeParams, handler TradeHandler)
 }
 
 var _ Interface = (*Client)(nil)
+
+//Stream for aggregate trade endpoint
+func (c *Client) AggregateTrade(params AggregateTradeParams, handler AggregateTradeHandler) {
+	endpoint := fmt.Sprintf("%s@aggTrade", strings.ToLower(params.Symbol))
+
+	c.API.Stream(endpoint, func(d []byte) {
+		out := AggregateTradeStream{}
+		json.Unmarshal(d, &out)
+		go handler(out)
+	})
+}
 
 //Stream for depth endpoint
 func (c *Client) Depth(params DepthParams, handler DepthHandler) {
@@ -39,6 +54,17 @@ func (c *Client) Kline(params KlineParams, handler KlineHandler) {
 	endpoint := fmt.Sprintf("%s@kline_%s", strings.ToLower(params.Symbol), params.Interval)
 	c.API.Stream(endpoint, func(d []byte) {
 		out := KlineStream{}
+		json.Unmarshal(d, &out)
+		go handler(out)
+	})
+}
+
+//Stream for trade endpoint
+func (c *Client) Trade(params TradeParams, handler TradeHandler) {
+	endpoint := fmt.Sprintf("%s@trade", strings.ToLower(params.Symbol))
+
+	c.API.Stream(endpoint, func(d []byte) {
+		out := TradeStream{}
 		json.Unmarshal(d, &out)
 		go handler(out)
 	})
