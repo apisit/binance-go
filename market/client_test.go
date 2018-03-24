@@ -10,7 +10,7 @@ import (
 )
 
 var httpClient = &http.Client{Timeout: 80 * time.Second}
-var baseURL = "https://www.binance.com/api"
+var baseURL = "https://api.binance.com"
 var key = ""
 var api = client.API{URL: baseURL, Key: key, HTTPClient: httpClient}
 
@@ -54,4 +54,16 @@ func TestAllBookTickers(t *testing.T) {
 		t.Error(err)
 	}
 	log.Printf("%v", p)
+}
+
+func TestKLines(t *testing.T) {
+	client := Client{API: api}
+	params := KLineParams{
+		Symbol:   "LTCBTC",
+		Interval: "1m",
+	}
+	_, err := client.KLines(params)
+	if err != nil {
+		t.Error(err)
+	}
 }

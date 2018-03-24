@@ -13,6 +13,7 @@ type MarketInterface interface {
 	OrderBook(params OrderBookParams) (OrderBook, error)
 	TwentyFourHourPrice(params Params) (TwentyFourHourPrice, error)
 	AllBookTickers() (AllBookTickers, error)
+	KLines(params KLineParams) ([]KLine, error)
 }
 
 var _ MarketInterface = (*Client)(nil)
@@ -50,5 +51,12 @@ func (c *Client) TwentyFourHourPrice(params Params) (TwentyFourHourPrice, error)
 func (c *Client) AllBookTickers() (AllBookTickers, error) {
 	out := AllBookTickers{}
 	err := c.API.Request("GET", "/api/v1/ticker/allBookTickers", nil, &out)
+	return out, err
+}
+
+//Kline/candlestick bars for a symbol. Klines are uniquely identified by their open time.
+func (c *Client) KLines(params KLineParams) ([]KLine, error) {
+	out := []KLine{}
+	err := c.API.Request("GET", "/api/v1/klines", params, &out)
 	return out, err
 }
